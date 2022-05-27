@@ -32,9 +32,9 @@ public class ParkingRepository {
 
     public List<ParkingSlot> getFreeSlotForType(VehicleType vehicleType){
         //Creating a query
-        //Two ways -(For criteria query in jpa)
-        //1. Typed Query  -- Typed query is used to create a query and execute it
-        //2. Named Query  -- Named query is used to avoid hard coding the query
+        //Two ways -(For typed query in jpa)
+        //1. Criteria Query
+        //2. Named Query
 
         //Typed Query implementation of criteria query
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -48,6 +48,13 @@ public class ParkingRepository {
         TypedQuery<ParkingSlot> query = entityManager.createQuery(criteriaQuery).setMaxResults(2); //Typed query will return the list of objects of entity type(ParkingSlot)
         return query.getResultList();
      }
+
+    public List<ParkingSlot> getFreeSlotForType2(VehicleType vehicleType){
+        TypedQuery<ParkingSlot> query = entityManager.createNamedQuery("getFreeSlots", ParkingSlot.class); //Passing Two parameters : Query name and entity type of the result
+        query.setParameter("occupied", false);
+        query.setParameter("vehicleType", vehicleType);
+        return query.getResultList();
+    }
 
     public ParkingSlot getSlotById(String id){
         return entityManager.find(ParkingSlot.class, id);//Here it will search for table referenced by the identity and search for the id and return the object of entity type

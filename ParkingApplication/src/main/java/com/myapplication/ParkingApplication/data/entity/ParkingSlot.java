@@ -16,6 +16,8 @@ import javax.persistence.*;
 
 @Entity(name = "ParkingSlot") //Name of the class which would be an entity
 @Table(name = "parking_slot") //Mapping to Table in DB
+//Named Queries
+@NamedQuery(name = "getFreeSlots", query = "SELECT ps FROM ParkingSlot ps WHERE ps.occupied = :occupied and ps.vehicleType= :vehicleType") //Named Query to get all free slots
 public class ParkingSlot {
 
     @Id //Primary key

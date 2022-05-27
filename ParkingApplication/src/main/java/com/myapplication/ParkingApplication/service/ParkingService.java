@@ -21,7 +21,9 @@ public class ParkingService {
     private ParkingRepository parkingRepository;
 
     public List<ParkingSlot> getAvailableSlotForVehicle(VehicleType vehicleType){
-        List<ParkingSlot> parkingSlots = parkingRepository.getFreeSlotForType(vehicleType);
+//        List<ParkingSlot> parkingSlots = parkingRepository.getFreeSlotForType(vehicleType);
+        //Using Named Query implementation
+        List<ParkingSlot> parkingSlots = parkingRepository.getFreeSlotForType2(vehicleType);
         return parkingSlots;
     }
 
