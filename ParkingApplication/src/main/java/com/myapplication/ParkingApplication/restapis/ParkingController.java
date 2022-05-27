@@ -9,6 +9,7 @@ import com.myapplication.ParkingApplication.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,15 +39,18 @@ public class ParkingController {
 
 //    Create New Slots
     @PutMapping("/createSlot")
+    @Transactional
     public ParkingSlot createSlot(@RequestBody CreateSlotRequest createSlotRequest){
         return parkingService.createSlot(createSlotRequest);
     }
 
 
     @PostMapping("/bookSlot")
+    @Transactional //API is transactional and would be treated as single transaction
 // @RequestBody will help in parsing Request Body sent as BookSlotRequestBody Object
     public BookSlotResponse bookSlot(@RequestBody BookSlotRequest bookSlotRequest){
 //        builder.build() here is used to send a dummy response
-        return BookSlotResponse.builder().build();
+//        return BookSlotResponse.builder().build();
+            return parkingService.bookSlot(bookSlotRequest);
     }
 }
